@@ -1,0 +1,70 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
+using GameNetcodeStuff;
+using HarmonyLib;
+
+namespace SpectatorChat
+{
+    [HarmonyPatch(typeof(PlayerControllerB), "KillPlayer")]
+    internal static class HUDPatch
+    {
+        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            List<CodeInstruction> codes = instructions.ToList();
+            
+            if (!SpectatorChatBase.IsPatched)
+            {
+                MethodInfo hideHUDMethod = typeof(HUDManager).GetMethod(nameof(HUDManager.HideHUD));
+
+                int index = 0;
+            
+                SpectatorChatBase.mls.LogInfo("Processing KillPlayer method...");
+
+                try
+                {
+                    index = codes.FindLastIndex(i => i.opcode == OpCodes.Callvirt && i.operand is MethodInfo methodInfo && methodInfo.Equals(hideHUDMethod));
+                    SpectatorChatBase.mls.LogInfo($"Index: {index} Code: {codes[index]} found.");
+                    index -= 2;
+                }
+                catch (Exception ex)
+                {
+                    SpectatorChatBase.mls.LogError(ex.Message + ex.StackTrace);
+                    throw;
+                }
+
+                try
+                {
+                    SpectatorChatBase.mls.LogInfo("Patching following codes...");
+                    for (int i = 0; i <= 2; i++)
+                    {
+                        SpectatorChatBase.mls.LogInfo($"Index: {index + i}, Code: {codes[index + i]}");
+                        codes[index + i].opcode = OpCodes.Nop;
+                    }
+                
+                    SpectatorChatBase.mls.LogInfo("Patched codes:");
+                    for (int i = 0; i <= 2; i++)
+                    {
+                        SpectatorChatBase.mls.LogInfo($"Index: {index + i}, Code: {codes[index + i]}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    SpectatorChatBase.mls.LogError(ex.Message + ex.StackTrace);
+                    throw;
+                }
+                finally
+                {
+                    SpectatorChatBase.mls.LogInfo("Patch success. No any fatal error were raised.");
+                }
+
+                return codes.AsEnumerable();
+            }
+
+            return codes.AsEnumerable();
+        }
+    }
+}
+
