@@ -24,6 +24,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# Compatible
+
+This mod patched at following method.
+```
+HUDManager.Awake
+HUDManager.EnableChat_performed
+HUDManager.SubmitChat_performed
+
+PlayerControllerB.KillPlayer
+PlayerControllerB.Update
+
+StartOfRound.ReviveDeadPlayers
+```
+
 ## 1.0.0
 
 First release.
