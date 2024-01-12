@@ -33,3 +33,35 @@ The configure of courtine will be publish soon.
 
 ### Spectator players can see the clock if the config `ShowClock` is true.
 #### You can set to `false` to disable this feature.
+
+## 1.0.5
+
+### Feature
+#### You can check log in `%AppData%\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx` for debug.
+#### e.g.
+```
+[Info   :Kaguya.SpectatorChat] Method HUDManager.Awake is patched by:
+- Prefix: BiggerLobby
+- Postfix: BiggerLobbyA
+- Postfix: Kaguya.SpectatorChat
+
+[Info   :Kaguya.SpectatorChat] Method HUDManager.EnableChat_performed is patched by:
+- Transpiler: Kaguya.SpectatorChat
+
+[Info   :Kaguya.SpectatorChat] Method HUDManager.SubmitChat_performed is patched by:
+- Transpiler: ModAPI
+- Transpiler: Kaguya.SpectatorChat
+
+[Info   :Kaguya.SpectatorChat] Method GameNetcodeStuff.PlayerControllerB.KillPlayer is patched by:
+- Postfix: Kaguya.SpectatorChat
+- Transpiler: ModAPI
+- Transpiler: Kaguya.SpectatorChat
+
+[Info   :Kaguya.SpectatorChat] Method GameNetcodeStuff.PlayerControllerB.Update is patched by:
+- Postfix: CustomSounds
+- Postfix: Kaguya.SpectatorChat
+
+[Info   :Kaguya.SpectatorChat] Method StartOfRound.ReviveDeadPlayers is patched by:
+- Postfix: Kaguya.SpectatorChat
+```
+#### If you encountered any bugs, Give me these logs then i'll fix that.
