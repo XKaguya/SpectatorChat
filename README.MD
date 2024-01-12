@@ -2,6 +2,8 @@
 
 SpectatorChat is a mod based on [BepInEx](https://github.com/BepInEx/BepInEx). This mod allows dead person use text to chat with other dead person.
 
+If you encounter any bug, Like can't send message, have no Chat UI, please tell me and bring your profile code.
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
