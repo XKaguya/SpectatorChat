@@ -27,6 +27,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 # Compatible
 
 This mod patched at following method.
+If you meet problem about no chat UI or can't input, Find specific patch in the logs and see what else patched the method.
+
+This mod using `SoftDependency` for compatible. It may cause errors.
+Please tell me when it happens.
 ```
 HUDManager.Awake
 HUDManager.EnableChat_performed
