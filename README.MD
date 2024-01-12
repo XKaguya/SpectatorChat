@@ -65,3 +65,26 @@ The configure of courtine will be publish soon.
 - Postfix: Kaguya.SpectatorChat
 ```
 #### If you encountered any bugs, Give me these logs then i'll fix that.
+
+## 1.0.6
+
+### Feature
+
+#### You can now set `CanLivingPlayerReceiveMessage` to true to enable the ability to talk with living player.
+
+#### Mod will now show who patched the methods mod should patch. By sending this to me can also helps me.
+
+#### If you encountered any bugs, Give me these logs then i'll fix that.
+
+### General
+
+### Added support for following mods:
+
+```
+LC_API
+TooManyEmotes
+NiceChat
+FlashlightToggle
+QuickRestart
+More_Emotes
+```
