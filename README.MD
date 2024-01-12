@@ -1,7 +1,7 @@
 - [ SpectatorChat](#head1)
 - [ Configuration](#head2)
-- [ Changelog](#head3)
-- [ Compatible](#head4)
+- [ Compatible](#head3)
+- [ Changelog](#head4)
 	- [ 1.0.0](#head5)
 	- [ 1.0.1](#head6)
 	- [ 1.0.4](#head7)
@@ -43,14 +43,7 @@ ShowClock = true
 CanLivingPlayerReceiveMessage = false
 ```
 
-# <span id="head3"> Changelog</span>
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-# <span id="head4"> Compatible</span>
+# <span id="head3"> Compatible</span>
 
 This mod patched at following method.
 If you meet problem about no chat UI or can't input, Find specific patch in the logs and see what else patched the method.
@@ -67,6 +60,13 @@ PlayerControllerB.Update
 
 StartOfRound.ReviveDeadPlayers
 ```
+
+# <span id="head4"> Changelog</span>
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## <span id="head5"> 1.0.0</span>
 
