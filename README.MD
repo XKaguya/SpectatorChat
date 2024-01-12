@@ -4,6 +4,24 @@ SpectatorChat is a mod based on [BepInEx](https://github.com/BepInEx/BepInEx). T
 
 If you encounter any bug, Like can't send message, have no Chat UI, please tell me and bring logs in `%AppData%\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx`.
 
+# Configuration
+```
+## Settings file was created by plugin SpectatorChat v1.0.6
+## Plugin GUID: Kaguya.SpectatorChat
+
+[Settings]
+
+## Show the clock for spectator players.
+# Setting type: Boolean
+# Default value: true
+ShowClock = true
+
+## Can living player receive dead player's message.
+# Setting type: Boolean
+# Default value: false
+CanLivingPlayerReceiveMessage = false
+```
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
