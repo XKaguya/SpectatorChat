@@ -15,7 +15,7 @@ namespace SpectatorChat
         {
             HarmonyAPI.LogCallingMethod("KillPlayer");
             
-            List<CodeInstruction> codes = instructions.ToList();
+            List<CodeInstruction> newInstructions = new List<CodeInstruction>(instructions);
             
             MethodInfo hideHUDMethod = typeof(HUDManager).GetMethod(nameof(HUDManager.HideHUD));
 
@@ -25,8 +25,8 @@ namespace SpectatorChat
 
             try
             {
-                index = codes.FindLastIndex(i => i.opcode == OpCodes.Callvirt && i.operand is MethodInfo methodInfo && methodInfo.Equals(hideHUDMethod));
-                Plugin.mls.LogInfo($"Index: {index} Code: {codes[index]} found.");
+                index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Callvirt && i.operand is MethodInfo methodInfo && methodInfo.Equals(hideHUDMethod));
+                Plugin.mls.LogInfo($"Index: {index} Code: {newInstructions[index]} found.");
                 index -= 2;
             }
             catch (Exception ex)
@@ -40,14 +40,14 @@ namespace SpectatorChat
                 Plugin.mls.LogInfo("Patching following codes...");
                 for (int i = 0; i <= 2; i++)
                 {
-                    Plugin.mls.LogInfo($"Index: {index + i}, Code: {codes[index + i]}");
-                    codes[index + i].opcode = OpCodes.Nop;
+                    Plugin.mls.LogInfo($"Index: {index + i}, Code: {newInstructions[index + i]}");
+                    newInstructions[index + i].opcode = OpCodes.Nop;
                 }
                 
                 Plugin.mls.LogInfo("Patched codes:");
                 for (int i = 0; i <= 2; i++)
                 {
-                    Plugin.mls.LogInfo($"Index: {index + i}, Code: {codes[index + i]}");
+                    Plugin.mls.LogInfo($"Index: {index + i}, Code: {newInstructions[index + i]}");
                 }
             }
             catch (Exception ex)
@@ -60,7 +60,10 @@ namespace SpectatorChat
                 Plugin.mls.LogInfo("Patch success. No any fatal error were raised.");
             }
 
-            return codes.AsEnumerable();
+            foreach (CodeInstruction instruction in newInstructions)
+            {
+                yield return instruction;
+            }
         }
     }
 }

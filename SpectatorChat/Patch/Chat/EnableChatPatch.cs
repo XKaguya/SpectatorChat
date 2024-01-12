@@ -15,7 +15,7 @@ namespace SpectatorChat
         {
             HarmonyAPI.LogCallingMethod("EnableChat_performed");
             
-            List<CodeInstruction> codes = instructions.ToList();
+            List<CodeInstruction> newInstructions = new List<CodeInstruction>(instructions);
             
             FieldInfo targetField = typeof(PlayerControllerB).GetField(nameof(PlayerControllerB.isPlayerDead));
 
@@ -25,10 +25,10 @@ namespace SpectatorChat
 
             try
             {
-                index = codes.FindLastIndex(instruction => instruction.opcode == OpCodes.Ldfld && instruction.operand is FieldInfo fieldInfo && fieldInfo.Equals(targetField));
-                Plugin.mls.LogInfo($"Index: {index} Code: {codes[index]} found.");
+                index = newInstructions.FindLastIndex(instruction => instruction.opcode == OpCodes.Ldfld && instruction.operand is FieldInfo fieldInfo && fieldInfo.Equals(targetField));
+                Plugin.mls.LogInfo($"Index: {index} Code: {newInstructions[index]} found.");
                 index -= 2;
-                Plugin.mls.LogInfo($"Got previous IL Code: {codes[index]}.");
+                Plugin.mls.LogInfo($"Got previous IL Code: {newInstructions[index]}.");
             }
             catch (Exception ex)
             {
@@ -41,14 +41,14 @@ namespace SpectatorChat
                 Plugin.mls.LogInfo("Patching following codes...");
                 for (int i = 0; i <= 4; i++)
                 {
-                    Plugin.mls.LogInfo($"Index: {index + i}, Code: {codes[index + i]}");
-                    codes[index + i].opcode = OpCodes.Nop;
+                    Plugin.mls.LogInfo($"Index: {index + i}, Code: {newInstructions[index + i]}");
+                    newInstructions[index + i].opcode = OpCodes.Nop;
                 }
                 
                 Plugin.mls.LogInfo("Patched codes:");
                 for (int i = 0; i <= 4; i++)
                 {
-                    Plugin.mls.LogInfo($"Index: {index + i}, Code: {codes[index + i]}");
+                    Plugin.mls.LogInfo($"Index: {index + i}, Code: {newInstructions[index + i]}");
                 }
             }
             catch (Exception ex)
@@ -61,7 +61,10 @@ namespace SpectatorChat
                 Plugin.mls.LogInfo("Patch success. No any fatal error were raised.");
             }
                 
-            return codes.AsEnumerable();
+            foreach (CodeInstruction instruction in newInstructions)
+            {
+                yield return instruction;
+            }
         }
     }
 }
