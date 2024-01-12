@@ -8,6 +8,8 @@ namespace SpectatorChat
         [HarmonyPatch(typeof(StartOfRound), "ReviveDeadPlayers")]
         private static void Postfix(PlayerControllerB __instance)
         {
+            HarmonyAPI.LogCallingMethod("ReviveDeadPlayers");
+            
             if (__instance.IsOwner)
             {
                 if (API.Instance.StopPermanentTransparent())

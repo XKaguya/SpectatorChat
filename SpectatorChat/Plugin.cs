@@ -3,22 +3,30 @@ using BepInEx.Configuration;
 using BepInEx.Logging;
 using GameNetcodeStuff;
 using HarmonyLib;
+using HarmonyLib.Tools;
 using LethalCompanyInputUtils.Api;
 using UnityEngine.InputSystem;
 
 namespace SpectatorChat
 {
     [BepInPlugin(modGUID, modName, modVersion)]
-    [BepInDependency("LC_API", "1.0.0")]
+    [BepInDependency("LC_API", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("FlipMods.TooManyEmotes", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("taffyko.NiceChat", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("rr.Flashlight", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("QuickRestart", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("MoreEmotes", BepInDependency.DependencyFlags.SoftDependency)]
     public class Plugin : BaseUnityPlugin
     {
         private const string modGUID = "Kaguya.SpectatorChat";
         private const string modName = "SpectatorChat";
-        private const string modVersion = "1.0.5";
+        private const string modVersion = "1.0.6";
 
         public static ConfigEntry<bool> ShowClock;
         
-        public static bool IsPatched { get; set; }
+        public static ConfigEntry<bool> CanLivingPlayerReceiveMessage;
+
+        public static bool CanReceive { get; set; }
 
         private readonly Harmony harmony = new(modGUID);
 
@@ -67,29 +75,24 @@ namespace SpectatorChat
 
         private void PatchAll()
         {
-            if (!IsPatched)
-            {
-                mls.LogInfo($"IsPatched: {IsPatched}");
-                
-                harmony.PatchAll(typeof(Plugin));
-                harmony.PatchAll(typeof(EnableChatPatch));
-                harmony.PatchAll(typeof(SubmitChatPatch));
-                harmony.PatchAll(typeof(HUDPatch));
-                harmony.PatchAll(typeof(AddPlayerChatMessagePatch));
-                
-                harmony.PatchAll(typeof(HUDManagerPostfixPatch));
-                harmony.PatchAll(typeof(KillPlayerPostfixPatch));
-                harmony.PatchAll(typeof(ReviveDeadPlayersPostfixPatch));
-                
-                harmony.PatchAll(typeof(KeyPatch));
-                
-                IsPatched = true;
-            }
+            harmony.PatchAll(typeof(Plugin));
+            harmony.PatchAll(typeof(EnableChatPatch));
+            harmony.PatchAll(typeof(SubmitChatPatch));
+            harmony.PatchAll(typeof(HUDPatch));
+            harmony.PatchAll(typeof(AddPlayerChatMessagePatch));
+            
+            harmony.PatchAll(typeof(HUDManagerPostfixPatch));
+            harmony.PatchAll(typeof(KillPlayerPostfixPatch));
+            harmony.PatchAll(typeof(ReviveDeadPlayersPostfixPatch));
+            
+            harmony.PatchAll(typeof(KeyPatch));
         }
 
         private void LoadConfigs()
         {
             ShowClock = ((BaseUnityPlugin)this).Config.Bind<bool>("Settings", "ShowClock", true, "Show the clock for spectator players.");
+            CanLivingPlayerReceiveMessage = ((BaseUnityPlugin)this).Config.Bind<bool>("Settings", "CanLivingPlayerReceiveMessage", false, "Can living player receive dead player's message.");
+            CanReceive = CanLivingPlayerReceiveMessage.Value;
         }
     }
 }

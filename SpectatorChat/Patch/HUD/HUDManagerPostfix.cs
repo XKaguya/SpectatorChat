@@ -7,6 +7,8 @@ namespace SpectatorChat
     {
         static void Postfix(HUDManager __instance)
         {
+            HarmonyAPI.LogCallingMethod("HUDManager.Awake");
+            
             Plugin.HUDManagerInstance = __instance;
             
             Plugin.HUDElements = __instance.HUDElements;
