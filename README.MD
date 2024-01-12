@@ -1,10 +1,36 @@
-# SpectatorChat
+- [ SpectatorChat](#head1)
+- [ Configuration](#head2)
+- [ Changelog](#head3)
+- [ Compatible](#head4)
+	- [ 1.0.0](#head5)
+	- [ 1.0.1](#head6)
+	- [ 1.0.4](#head7)
+		- [ General](#head8)
+			- [Fixed a problem that will cause all player's UI disappear.](#head9)
+		- [ Feature](#head10)
+			- [You can now Press HotKey to manually control about the death player boxes.](#head11)
+				- [Default key is R. It is configurable in the game settings.](#head12)
+		- [Spectator players can see the clock if the config `ShowClock` is true.](#head13)
+			- [You can set to `false` to disable this feature.](#head14)
+	- [ 1.0.5](#head15)
+		- [ Feature](#head16)
+			- [You can check log in `%AppData%\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx` for debug.](#head17)
+			- [ e.g.](#head18)
+			- [If you encountered any bugs, Give me these logs then i'll fix that.](#head19)
+	- [ 1.0.6](#head20)
+		- [ Feature](#head21)
+			- [You can now set `CanLivingPlayerReceiveMessage` to true to enable the ability to talk with living player.](#head22)
+			- [Mod will now show who patched the methods mod should patch. By sending this to me can also helps me.](#head23)
+		- [ General](#head24)
+		- [Added support for following mods:](#head25)
+		- [If you encountered any bugs, Give me these logs then i'll fix that.](#head26)
+# <span id="head1"> SpectatorChat</span>
 
 SpectatorChat is a mod based on [BepInEx](https://github.com/BepInEx/BepInEx). This mod allows dead player use text to chat with other player.Default is only dead. By setting CanLivingPlayerReceiveMessage for true, Dead player can talk with living player.
 
 If you encounter any bug, Like can't send message, have no Chat UI, please tell me and bring logs in `%AppData%\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx`.
 
-# Configuration
+# <span id="head2"> Configuration</span>
 ```
 ## Show the clock for spectator players.
 # Setting type: Boolean
@@ -17,14 +43,14 @@ ShowClock = true
 CanLivingPlayerReceiveMessage = false
 ```
 
-# Changelog
+# <span id="head3"> Changelog</span>
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# Compatible
+# <span id="head4"> Compatible</span>
 
 This mod patched at following method.
 If you meet problem about no chat UI or can't input, Find specific patch in the logs and see what else patched the method.
@@ -42,34 +68,34 @@ PlayerControllerB.Update
 StartOfRound.ReviveDeadPlayers
 ```
 
-## 1.0.0
+## <span id="head5"> 1.0.0</span>
 
 First release.
 
-## 1.0.1
+## <span id="head6"> 1.0.1</span>
 
 Only Chat ui will be display now.
 The configure of courtine will be publish soon.
 
-## 1.0.4
+## <span id="head7"> 1.0.4</span>
 
-### General
+### <span id="head8"> General</span>
 
-#### Fixed a problem that will cause all player's UI disappear.
+#### <span id="head9">Fixed a problem that will cause all player's UI disappear.</span>
 
-### Feature
+### <span id="head10"> Feature</span>
 
-#### You can now Press HotKey to manually control about the death player boxes.
-##### Default key is R. It is configurable in the game settings.
+#### <span id="head11">You can now Press HotKey to manually control about the death player boxes.</span>
+##### <span id="head12">Default key is R. It is configurable in the game settings.</span>
 
-### Spectator players can see the clock if the config `ShowClock` is true.
-#### You can set to `false` to disable this feature.
+### <span id="head13">Spectator players can see the clock if the config `ShowClock` is true.</span>
+#### <span id="head14">You can set to `false` to disable this feature.</span>
 
-## 1.0.5
+## <span id="head15"> 1.0.5</span>
 
-### Feature
-#### You can check log in `%AppData%\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx` for debug.
-#### e.g.
+### <span id="head16"> Feature</span>
+#### <span id="head17">You can check log in `%AppData%\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx` for debug.</span>
+#### <span id="head18"> e.g.</span>
 ```
 [Info   :Kaguya.SpectatorChat] Method HUDManager.Awake is patched by:
 - Prefix: BiggerLobby
@@ -95,19 +121,19 @@ The configure of courtine will be publish soon.
 [Info   :Kaguya.SpectatorChat] Method StartOfRound.ReviveDeadPlayers is patched by:
 - Postfix: Kaguya.SpectatorChat
 ```
-#### If you encountered any bugs, Give me these logs then i'll fix that.
+#### <span id="head19">If you encountered any bugs, Give me these logs then i'll fix that.</span>
 
-## 1.0.6
+## <span id="head20"> 1.0.6</span>
 
-### Feature
+### <span id="head21"> Feature</span>
 
-#### You can now set `CanLivingPlayerReceiveMessage` to true to enable the ability to talk with living player.
+#### <span id="head22">You can now set `CanLivingPlayerReceiveMessage` to true to enable the ability to talk with living player.</span>
 
-#### Mod will now show who patched the methods mod should patch. By sending this to me can also helps me.
+#### <span id="head23">Mod will now show who patched the methods mod should patch. By sending this to me can also helps me.</span>
 
-### General
+### <span id="head24"> General</span>
 
-### Added support for following mods:
+### <span id="head25">Added support for following mods:</span>
 
 ```
 LC_API
@@ -117,4 +143,4 @@ FlashlightToggle
 QuickRestart
 More_Emotes
 ```
-### If you encountered any bugs, Give me these logs then i'll fix that.
+### <span id="head26">If you encountered any bugs, Give me these logs then i'll fix that.</span>
