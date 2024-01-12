@@ -6,11 +6,6 @@ If you encounter any bug, Like can't send message, have no Chat UI, please tell 
 
 # Configuration
 ```
-## Settings file was created by plugin SpectatorChat v1.0.6
-## Plugin GUID: Kaguya.SpectatorChat
-
-[Settings]
-
 ## Show the clock for spectator players.
 # Setting type: Boolean
 # Default value: true
