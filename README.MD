@@ -87,8 +87,6 @@ The configure of courtine will be publish soon.
 
 #### Mod will now show who patched the methods mod should patch. By sending this to me can also helps me.
 
-#### If you encountered any bugs, Give me these logs then i'll fix that.
-
 ### General
 
 ### Added support for following mods:
@@ -101,3 +99,4 @@ FlashlightToggle
 QuickRestart
 More_Emotes
 ```
+### If you encountered any bugs, Give me these logs then i'll fix that.
