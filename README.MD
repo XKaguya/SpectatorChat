@@ -1,3 +1,6 @@
+[TOC]
+
+
 # SpectatorChat
 
 SpectatorChat is a mod based on [BepInEx](https://github.com/BepInEx/BepInEx). This mod allows dead player use text to chat with other player.Default is only dead. By setting CanLivingPlayerReceiveMessage for true, Dead player can talk with living player.
