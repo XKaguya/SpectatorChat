@@ -1,4 +1,4 @@
-@[TOC](Index)
+[TOC](Index)
 
 
 # SpectatorChat
