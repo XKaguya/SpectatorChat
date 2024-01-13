@@ -152,7 +152,7 @@ More_Emotes
 
 ## <span id="head26"> 1.0.7</span>
 
-### <span id="head27" Currently not compatible with `ChatCommands`.
+### <span id="head27"> Currently not compatible with `ChatCommands`.
 
 ### <span id="head28"> General
 
