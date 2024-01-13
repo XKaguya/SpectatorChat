@@ -24,6 +24,12 @@
 		- [ General](#head24)
 			- [Added support for following mods:](#head25)
 			- [If you encountered any bugs, Give me these logs then i'll fix that.](#head26)
+	- [ 1.0.7](#head20)
+		- [ General](#head26)
+			- [Currently not compatible with `ChatCommands`.](#head27)
+			- [Fixed compatible with mod `EladsHUD`](#head29)
+			- [Fixed compatible with mod `MirrorDecor`](#head30)
+			- [Changed all codes into instructions.](#head31)
 # <span id="head1"> SpectatorChat</span>
 
 SpectatorChat is a mod based on [BepInEx](https://github.com/BepInEx/BepInEx). This mod allows dead player use text to chat with other player.Default is only dead. By setting CanLivingPlayerReceiveMessage for true, Dead player can talk with living player.
@@ -143,4 +149,15 @@ FlashlightToggle
 QuickRestart
 More_Emotes
 ```
+
+## <span id="head26"> 1.0.7</span>
+
+### <span id="head27" Currently not compatible with `ChatCommands`.
+
+### <span id="head28"> General
+
+#### <span id="head29">Fixed compatible with mod `EladsHUD`
+#### <span id="head30">Fixed compatible with mod `MirrorDecor`
+#### <span id="head31">Changed all codes into instructions.
+
 ### <span id="head26">If you encountered any bugs, Give me these logs then i'll fix that.</span>
