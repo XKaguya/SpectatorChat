@@ -16,6 +16,8 @@ namespace SpectatorChat
     [BepInDependency("rr.Flashlight", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("QuickRestart", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("MoreEmotes", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("quackandcheese.mirrordecor", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("me.eladnlg.customhud", BepInDependency.DependencyFlags.SoftDependency)]
     public class Plugin : BaseUnityPlugin
     {
         private const string modGUID = "Kaguya.SpectatorChat";
