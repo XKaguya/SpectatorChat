@@ -3,7 +3,6 @@ using BepInEx.Configuration;
 using BepInEx.Logging;
 using GameNetcodeStuff;
 using HarmonyLib;
-using HarmonyLib.Tools;
 using LethalCompanyInputUtils.Api;
 using UnityEngine.InputSystem;
 
