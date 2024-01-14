@@ -22,11 +22,13 @@ namespace SpectatorChat
     {
         private const string modGUID = "Kaguya.SpectatorChat";
         private const string modName = "SpectatorChat";
-        private const string modVersion = "1.0.8";
+        private const string modVersion = "1.0.9";
 
         public static ConfigEntry<bool> ShowClock;
         
         public static ConfigEntry<bool> CanLivingPlayerReceiveMessage;
+        
+        public static ConfigEntry<float> CoroutineDelay;
 
         public static bool CanReceive { get; set; }
 
@@ -93,6 +95,7 @@ namespace SpectatorChat
         {
             ShowClock = ((BaseUnityPlugin)this).Config.Bind<bool>("Settings", "ShowClock", true, "Show the clock for spectator players.");
             CanLivingPlayerReceiveMessage = ((BaseUnityPlugin)this).Config.Bind<bool>("Settings", "CanLivingPlayerReceiveMessage", false, "Can living player receive dead player's message.");
+            CoroutineDelay = ((BaseUnityPlugin)this).Config.Bind<float>("Settings", "CoroutineDelay", 1f, "How long will the coroutine delay.");
             CanReceive = CanLivingPlayerReceiveMessage.Value;
         }
     }

@@ -16,6 +16,8 @@ namespace SpectatorChat
             {
                 if (API.Instance.StartPermanentTransparent())
                 {
+                    HUDManager.Instance.gameOverAnimator.SetTrigger("revive");
+                    
                     Plugin.mls.LogInfo($"Routine start successfully. Player {__instance.playerUsername}");
                 }
             }

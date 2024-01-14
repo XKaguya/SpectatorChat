@@ -18,6 +18,8 @@ namespace SpectatorChat
                 {
                     if (API.Instance.StopPermanentTransparent())
                     {
+                        HUDManager.Instance.RemoveSpectateUI();
+                        
                         Plugin.mls.LogInfo($"Routine stopped successfully. Player {Plugin.PlayerControllerInstance.playerUsername}");
                     }
                     else

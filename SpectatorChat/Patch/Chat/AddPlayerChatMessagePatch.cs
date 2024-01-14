@@ -80,9 +80,11 @@ namespace SpectatorChat
                 newInstructions.InsertRange(index, new []
                 {
                     new(OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Plugin), nameof(Plugin.CanReceive))),
-                    new(OpCodes.Brtrue_S, continueLabel),
+                    new(OpCodes.Brfalse_S, retLabel),
                     
-                    new (OpCodes.Ret),
+                    new(OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Plugin), nameof(Plugin.PlayerControllerInstance.isPlayerDead))),
+                    new(OpCodes.Brtrue_S, continueLabel),
+                    new(OpCodes.Ret),
                     new CodeInstruction(OpCodes.Nop).WithLabels(continueLabel),
                 });
             }

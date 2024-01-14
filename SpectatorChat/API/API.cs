@@ -107,7 +107,7 @@ namespace SpectatorChat
                     }
                 }
                 
-                yield return 1f;
+                yield return Plugin.CoroutineDelay.Value;
             }
         }
 
