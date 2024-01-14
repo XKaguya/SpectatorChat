@@ -30,6 +30,15 @@
 			- [Fixed compatible with mod `EladsHUD`](#head29)
 			- [Fixed compatible with mod `MirrorDecor`](#head30)
 			- [Changed all codes into instructions.](#head31)
+	- [ 1.0.8](#head32)
+		- [ General](#head33)
+			- [Resolved version number issue.](#head34)
+			- [Resolved `[Warning: Unity Log] The script 'SpectatorChat.Plugin' could not be instantiated!` issue. #2](#head35)
+				- [This is caused by the mod require a hard dependence mod. That i've forget to written in it.](#head36)
+			- [Resolved a issue that will cause summary broken.](#head37)
+				- [--- This is caused by Zeekers called `ReviveDeadPlayers` by a `AnimatedShipDoor`. _WTF IS THIS ??_](#head37)
+				- [--- Changed the patch to `HideHUD` method. Now the summary is working normallly now.](#head37)
+			- [Removed useless reference and useless codes.](#head37)
 # <span id="head1"> SpectatorChat</span>
 
 SpectatorChat is a mod based on [BepInEx](https://github.com/BepInEx/BepInEx). This mod allows dead player use text to chat with other player.Default is only dead. By setting CanLivingPlayerReceiveMessage for true, Dead player can talk with living player.
@@ -161,3 +170,13 @@ More_Emotes
 #### <span id="head31">Changed all codes into instructions.
 
 ### <span id="head26">If you encountered any bugs, Give me these logs then i'll fix that.</span>
+
+## <span id="head32"> 1.0.8</span>
+### <span id="head33"> General
+#### <span id="head34">Resolved version number issue.
+#### <span id="head35">Resolved `[Warning: Unity Log] The script 'SpectatorChat.Plugin' could not be instantiated!` issue. #2
+##### <span id="head36">--- This is caused by the mod require a hard dependence mod. That i've forget to written in it.
+#### <span id="head37">Resolved a issue that will cause summary broken.
+##### <span id="head38">--- This is caused by Zeekers called `ReviveDeadPlayers` by a `AnimatedShipDoor`. _WTF IS THIS ??_
+##### <span id="head39">--- Changed the patch to `HideHUD` method. Now the summary is working normallly now.
+#### <span id="head40">Removed useless reference and useless codes.
