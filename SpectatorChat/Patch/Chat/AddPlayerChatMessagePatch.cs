@@ -16,8 +16,6 @@ namespace SpectatorChat
 
             List<CodeInstruction> newInstructions = new List<CodeInstruction>(instructions);
 
-            Label retLabel = generator.DefineLabel();
-
             Label continueLabel = generator.DefineLabel();
 
             FieldInfo targetField = typeof(PlayerControllerB).GetField(nameof(PlayerControllerB.isPlayerDead));
@@ -80,11 +78,9 @@ namespace SpectatorChat
                 newInstructions.InsertRange(index, new []
                 {
                     new(OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Plugin), nameof(Plugin.CanReceive))),
-                    new(OpCodes.Brfalse_S, retLabel),
-                    
-                    new(OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Plugin), nameof(Plugin.PlayerControllerInstance.isPlayerDead))),
                     new(OpCodes.Brtrue_S, continueLabel),
-                    new(OpCodes.Ret),
+                    
+                    new (OpCodes.Ret),
                     new CodeInstruction(OpCodes.Nop).WithLabels(continueLabel),
                 });
             }
@@ -97,8 +93,6 @@ namespace SpectatorChat
             {
                 Plugin.mls.LogInfo("Patch success. No any fatal error were raised.");
             }
-
-            newInstructions[newInstructions.Count - 1].WithLabels(retLabel);
 
             foreach (CodeInstruction instruction in newInstructions)
             {
