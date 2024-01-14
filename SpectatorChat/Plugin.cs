@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 namespace SpectatorChat
 {
     [BepInPlugin(modGUID, modName, modVersion)]
+    [BepInDependency("com.rune580.LethalCompanyInputUtils")]
     [BepInDependency("LC_API", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("FlipMods.TooManyEmotes", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("taffyko.NiceChat", BepInDependency.DependencyFlags.SoftDependency)]
@@ -22,7 +23,7 @@ namespace SpectatorChat
     {
         private const string modGUID = "Kaguya.SpectatorChat";
         private const string modName = "SpectatorChat";
-        private const string modVersion = "1.0.6";
+        private const string modVersion = "1.0.8";
 
         public static ConfigEntry<bool> ShowClock;
         
@@ -72,12 +73,11 @@ namespace SpectatorChat
             mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(harmony, AccessTools.Method(typeof(HUDManager), "SubmitChat_performed")));
             mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(harmony, AccessTools.Method(typeof(PlayerControllerB), "KillPlayer")));
             mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(harmony, AccessTools.Method(typeof(PlayerControllerB), "Update")));
-            mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(harmony, AccessTools.Method(typeof(StartOfRound), "ReviveDeadPlayers")));
+            mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(harmony, AccessTools.Method(typeof(HUDManager), "HideHUD")));
         }
 
         private void PatchAll()
         {
-            harmony.PatchAll(typeof(Plugin));
             harmony.PatchAll(typeof(EnableChatPatch));
             harmony.PatchAll(typeof(SubmitChatPatch));
             harmony.PatchAll(typeof(HUDPatch));
@@ -85,7 +85,7 @@ namespace SpectatorChat
             
             harmony.PatchAll(typeof(HUDManagerPostfixPatch));
             harmony.PatchAll(typeof(KillPlayerPostfixPatch));
-            harmony.PatchAll(typeof(ReviveDeadPlayersPostfixPatch));
+            harmony.PatchAll(typeof(HideHUDPostfixPatch));
             
             harmony.PatchAll(typeof(KeyPatch));
         }

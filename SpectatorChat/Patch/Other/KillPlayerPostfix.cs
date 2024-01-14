@@ -10,6 +10,8 @@ namespace SpectatorChat
         {
             HarmonyAPI.LogCallingMethod("KillPlayer");
             
+            Plugin.mls.LogInfo($"{__instance.playerUsername} Environment: Instance Name: {__instance.name} Instance Object Name: {__instance.playerUsername} Instance Owner: {__instance.IsOwner}, Instance Player Dead: {__instance.isPlayerDead}, API IsCoroutineNull: {API.Instance.IsCoroutineNull()}");
+            
             if (__instance.IsOwner)
             {
                 if (API.Instance.StartPermanentTransparent())

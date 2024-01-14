@@ -11,7 +11,7 @@ namespace SpectatorChat
         
         private Coroutine permanentTransparentCoroutine;
         
-        public static HUDElement[] HUDElements { get; set; }
+        private static HUDElement[] HUDElements { get; set; }
         
         private void Awake()
         {
@@ -38,6 +38,16 @@ namespace SpectatorChat
             }
         }
 
+        public bool IsCoroutineNull()
+        {
+            if (permanentTransparentCoroutine == null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public void GetHUDElements()
         {
             if (Plugin.ShowClock.Value)
@@ -52,6 +62,8 @@ namespace SpectatorChat
 
         public bool StartPermanentTransparent()
         {
+            HarmonyAPI.LogCallingMethod("StartPermanentTransparent");
+            
             GetHUDElements();
             
             if (permanentTransparentCoroutine == null)
@@ -68,6 +80,8 @@ namespace SpectatorChat
         
         public bool StopPermanentTransparent()
         {
+            HarmonyAPI.LogCallingMethod("StopPermanentTransparent");
+            
             if (permanentTransparentCoroutine != null)
             {
                 StopCoroutine(permanentTransparentCoroutine);
@@ -106,7 +120,6 @@ namespace SpectatorChat
                     for (int i = 0; i < instance.spectatingPlayerBoxes.Count; i++)
                     {
                         instance.spectatingPlayerBoxes.ElementAt(i).Key.gameObject.SetActive(true);
-                        Plugin.mls.LogInfo($"{instance.spectatingPlayerBoxes.ElementAt(i).Key.name} has been actived.");
                     }
                 }
                 else
@@ -114,8 +127,6 @@ namespace SpectatorChat
                     for (int i = 0; i < instance.spectatingPlayerBoxes.Count; i++)
                     {
                         instance.spectatingPlayerBoxes.ElementAt(i).Key.gameObject.SetActive(false);
-                        Plugin.mls.LogInfo(
-                            $"{instance.spectatingPlayerBoxes.ElementAt(i).Key.name} has been deactived.");
                     }
                 }
             }
