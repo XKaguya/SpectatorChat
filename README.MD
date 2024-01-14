@@ -69,11 +69,10 @@ Please tell me when it happens.
 HUDManager.Awake
 HUDManager.EnableChat_performed
 HUDManager.SubmitChat_performed
+HUDManager.HideHUD
 
 PlayerControllerB.KillPlayer
 PlayerControllerB.Update
-
-StartOfRound.ReviveDeadPlayers
 ```
 
 # <span id="head4"> Changelog</span>
