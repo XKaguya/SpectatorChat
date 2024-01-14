@@ -1,115 +1,44 @@
-- [ SpectatorChat](#head1)
-- [ Configuration](#head2)
-- [ Compatible](#head3)
-- [ Changelog](#head4)
-	- [ 1.0.0](#head5)
-	- [ 1.0.1](#head6)
-	- [ 1.0.4](#head7)
-		- [ General](#head8)
-			- [Fixed a problem that will cause all player's UI disappear.](#head9)
-		- [ Feature](#head10)
-			- [You can now Press HotKey to manually control about the death player boxes.](#head11)
-				- [Default key is R. It is configurable in the game settings.](#head12)
-		- [Spectator players can see the clock if the config `ShowClock` is true.](#head13)
-			- [You can set to `false` to disable this feature.](#head14)
-	- [ 1.0.5](#head15)
-		- [ Feature](#head16)
-			- [You can check log in `%AppData%\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx` for debug.](#head17)
-			- [ e.g.](#head18)
-			- [If you encountered any bugs, Give me these logs then i'll fix that.](#head19)
-	- [ 1.0.6](#head20)
-		- [ Feature](#head21)
-			- [You can now set `CanLivingPlayerReceiveMessage` to true to enable the ability to talk with living player.](#head22)
-			- [Mod will now show who patched the methods mod should patch. By sending this to me can also helps me.](#head23)
-		- [ General](#head24)
-			- [Added support for following mods:](#head25)
-			- [If you encountered any bugs, Give me these logs then i'll fix that.](#head26)
-	- [ 1.0.7](#head20)
-		- [ General](#head26)
-			- [Currently not compatible with `ChatCommands`.](#head27)
-			- [Fixed compatible with mod `EladsHUD`](#head29)
-			- [Fixed compatible with mod `MirrorDecor`](#head30)
-			- [Changed all codes into instructions.](#head31)
-	- [ 1.0.8](#head32)
-		- [ General](#head33)
-			- [Resolved version number issue.](#head34)
-			- [Resolved `[Warning: Unity Log] The script 'SpectatorChat.Plugin' could not be instantiated!` issue. #2](#head35)
-				- [This is caused by the mod require a hard dependence mod. That i've forget to written in it.](#head36)
-			- [Resolved a issue that will cause summary broken.](#head37)
-				- [--- This is caused by Zeekers called `ReviveDeadPlayers` by a `AnimatedShipDoor`. _WTF IS THIS ??_](#head37)
-				- [--- Changed the patch to `HideHUD` method. Now the summary is working normallly now.](#head37)
-			- [Removed useless reference and useless codes.](#head37)
-# <span id="head1"> SpectatorChat</span>
+# SpectatorChat
+## SpectatorChat is a mod based on [BepInEx](https://github.com/BepInEx/BepInEx). This mod allows dead player use text to chat with other player.Default is only dead. By setting CanLivingPlayerReceiveMessage for true, Dead player can talk with living player.
+If you encounter any bug, Like can't send message, have no Chat UI, please tell me and bring your profile code.
 
-SpectatorChat is a mod based on [BepInEx](https://github.com/BepInEx/BepInEx). This mod allows dead player use text to chat with other player.Default is only dead. By setting CanLivingPlayerReceiveMessage for true, Dead player can talk with living player.
+## Currently not compatible with `ChatCommands`.
 
-If you encounter any bug, Like can't send message, have no Chat UI, please tell me and bring logs in `%AppData%\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx`.
-
-# <span id="head2"> Configuration</span>
-```
-## Show the clock for spectator players.
-# Setting type: Boolean
-# Default value: true
-ShowClock = true
-
-## Can living player receive dead player's message.
-# Setting type: Boolean
-# Default value: false
-CanLivingPlayerReceiveMessage = false
-```
-
-# <span id="head3"> Compatible</span>
-
-This mod patched at following method.
-If you meet problem about no chat UI or can't input, Find specific patch in the logs and see what else patched the method.
-
-This mod using `SoftDependency` for compatible. It may cause errors.
-Please tell me when it happens.
-```
-HUDManager.Awake
-HUDManager.EnableChat_performed
-HUDManager.SubmitChat_performed
-HUDManager.HideHUD
-
-PlayerControllerB.KillPlayer
-PlayerControllerB.Update
-```
-
-# <span id="head4"> Changelog</span>
+# Changelog
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## <span id="head5"> 1.0.0</span>
+# 1.0.0
 
 First release.
 
-## <span id="head6"> 1.0.1</span>
+# 1.0.1
 
 Only Chat ui will be display now.
 The configure of courtine will be publish soon.
 
-## <span id="head7"> 1.0.4</span>
+# 1.0.4
 
-### <span id="head8"> General</span>
+## General
 
-#### <span id="head9">Fixed a problem that will cause all player's UI disappear.</span>
+### Fixed a problem that will cause all player's UI disappear.
 
-### <span id="head10"> Feature</span>
+## Feature
 
-#### <span id="head11">You can now Press HotKey to manually control about the death player boxes.</span>
-##### <span id="head12">Default key is R. It is configurable in the game settings.</span>
+### You can now Press HotKey to manually control about the death player boxes.
+#### Default key is R. It is configurable in the game settings.
 
-### <span id="head13">Spectator players can see the clock if the config `ShowClock` is true.</span>
-#### <span id="head14">You can set to `false` to disable this feature.</span>
+### Spectator players can see the clock if the config `ShowClock` is true.
+#### You can set to `false` to disable this feature.
 
-## <span id="head15"> 1.0.5</span>
+# 1.0.5
 
-### <span id="head16"> Feature</span>
-#### <span id="head17">You can check log in `%AppData%\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx` for debug.</span>
-#### <span id="head18"> e.g.</span>
+## Feature
+### You can check log in `%AppData%\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx` for debug.
+### e.g.
 ```
 [Info   :Kaguya.SpectatorChat] Method HUDManager.Awake is patched by:
 - Prefix: BiggerLobby
@@ -135,19 +64,22 @@ The configure of courtine will be publish soon.
 [Info   :Kaguya.SpectatorChat] Method StartOfRound.ReviveDeadPlayers is patched by:
 - Postfix: Kaguya.SpectatorChat
 ```
-#### <span id="head19">If you encountered any bugs, Give me these logs then i'll fix that.</span>
 
-## <span id="head20"> 1.0.6</span>
+### If you encountered any bugs, Give me these logs then i'll fix that.
 
-### <span id="head21"> Feature</span>
+# 1.0.6
 
-#### <span id="head22">You can now set `CanLivingPlayerReceiveMessage` to true to enable the ability to talk with living player.</span>
+## Feature
 
-#### <span id="head23">Mod will now show who patched the methods mod should patch. By sending this to me can also helps me.</span>
+### You can now set `CanLivingPlayerReceiveMessage` to true to enable the ability to talk with living player.
 
-### <span id="head24"> General</span>
+### Mod will now show who patched the methods mod should patch. By sending this to me can also helps me.
 
-### <span id="head25">Added support for following mods:</span>
+### If you encountered any bugs, Give me these logs then i'll fix that.
+
+## General
+
+## Added support for following mods:
 
 ```
 LC_API
@@ -158,24 +90,41 @@ QuickRestart
 More_Emotes
 ```
 
-## <span id="head26"> 1.0.7</span>
+# 1.0.7
 
-### <span id="head27"> Currently not compatible with `ChatCommands`.
+# Currently not compatible with `ChatCommands`.
 
-### <span id="head28"> General
+## General
 
-#### <span id="head29">Fixed compatible with mod `EladsHUD`
-#### <span id="head30">Fixed compatible with mod `MirrorDecor`
-#### <span id="head31">Changed all codes into instructions.
+### Fixed compatible with mod `EladsHUD`
+### Fixed compatible with mod `MirrorDecor`
+### Changed all codes into instructions.
 
-### <span id="head26">If you encountered any bugs, Give me these logs then i'll fix that.</span>
+# 1.0.8
 
-## <span id="head32"> 1.0.8</span>
-### <span id="head33"> General
-#### <span id="head34">Resolved version number issue.
-#### <span id="head35">Resolved `[Warning: Unity Log] The script 'SpectatorChat.Plugin' could not be instantiated!` issue. #2
-##### <span id="head36">--- This is caused by the mod require a hard dependence mod. That i've forget to written in it.
-#### <span id="head37">Resolved a issue that will cause summary broken.
-##### <span id="head38">--- This is caused by Zeekers called `ReviveDeadPlayers` by a `AnimatedShipDoor`. _WTF IS THIS ??_
-##### <span id="head39">--- Changed the patch to `HideHUD` method. Now the summary is working normallly now.
-#### <span id="head40">Removed useless reference and useless codes.
+## General
+
+### Resolved version number issue.
+
+### Resolved `[Warning: Unity Log] The script 'SpectatorChat.Plugin' could not be instantiated!` issue. #2
+#### --- This is caused by the mod require a hard dependence mod. That i've forget to written in it.
+
+### Resolved a issue that will cause summary broken.
+#### --- This is caused by Zeekers called `ReviveDeadPlayers` by a `AnimatedShipDoor`. _WTF IS THIS ??_
+#### --- Changed the patch to `HideHUD` method. Now the summary is working normallly now.
+
+### Removed useless reference and useless codes.
+
+# 1.0.9
+
+## General
+
+### Fixed while player is dead, the hurt UI still there.
+#### Like when you killed by Masked, or etc.
+
+### Fixed while player is dead, Switching the spectator boxes, will show last round's dead players boxes.
+
+## Known Issue
+
+### While `CanLivingPlayerReceiveMessage` is true. It's inevitably that chat distance between surviving players is also infinite.
+#### Will looking into a way to solve this.
