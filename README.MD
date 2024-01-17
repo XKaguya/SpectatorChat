@@ -136,3 +136,9 @@ More_Emotes
 ### Resolved a problem that will cause dead player "revive".
 
 ### Resolved a problem that the spectator boxes not showing correctly.
+
+# 1.1.1
+
+## General
+
+### Resolved a class spell problem.
