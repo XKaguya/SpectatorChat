@@ -128,3 +128,11 @@ More_Emotes
 
 ### While `CanLivingPlayerReceiveMessage` is true. It's inevitably that chat distance between surviving players is also infinite.
 #### Will looking into a way to solve this.
+
+# 1.1.0
+
+## General
+
+### Resolved a problem that will cause dead player "revive".
+
+### Resolved a problem that the spectator boxes not showing correctly.
