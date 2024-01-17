@@ -23,7 +23,7 @@ namespace SpectatorChat
     {
         private const string modGUID = "Kaguya.SpectatorChat";
         private const string modName = "SpectatorChat";
-        private const string modVersion = "1.1.0";
+        private const string modVersion = "1.1.1";
 
         public static ConfigEntry<bool> ShowClock;
         
@@ -76,7 +76,7 @@ namespace SpectatorChat
             mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(harmony, AccessTools.Method(typeof(PlayerControllerB), "KillPlayer")));
             mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(harmony, AccessTools.Method(typeof(PlayerControllerB), "Update")));
             mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(harmony, AccessTools.Method(typeof(HUDManager), "HideHUD")));
-            mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(harmony, AccessTools.Method(typeof(HUDManager), "SetShipReadyToLand")));
+            mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(harmony, AccessTools.Method(typeof(StartOfRound), "SetShipReadyToLand")));
         }
 
         private void PatchAll()

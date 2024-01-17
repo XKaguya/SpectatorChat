@@ -5,7 +5,7 @@ namespace SpectatorChat
     [HarmonyPatch(typeof(StartOfRound), "SetShipReadyToLand")]
     internal static class SetShipReadyToLandPostfix
     {
-        static void Postfix(HUDManager __instance)
+        static void Postfix()
         {
             HarmonyAPI.LogCallingMethod("StartOfRound.SetShipReadyToLand");
             
