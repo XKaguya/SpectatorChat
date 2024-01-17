@@ -3,7 +3,6 @@
 namespace SpectatorChat
 {
     [HarmonyPatch(typeof(HUDManager), "Awake")]
-    [HarmonyPriority(999)]
     internal static class HUDManagerPostfixPatch
     {
         static void Postfix(HUDManager __instance)

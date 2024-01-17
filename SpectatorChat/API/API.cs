@@ -62,8 +62,6 @@ namespace SpectatorChat
 
         public bool StartPermanentTransparent()
         {
-            HarmonyAPI.LogCallingMethod("StartPermanentTransparent");
-            
             GetHUDElements();
             
             if (permanentTransparentCoroutine == null)
@@ -80,8 +78,6 @@ namespace SpectatorChat
         
         public bool StopPermanentTransparent()
         {
-            HarmonyAPI.LogCallingMethod("StopPermanentTransparent");
-            
             if (permanentTransparentCoroutine != null)
             {
                 StopCoroutine(permanentTransparentCoroutine);
@@ -134,6 +130,28 @@ namespace SpectatorChat
             {
                 Plugin.mls.LogError(ex.Message + ex.StackTrace);
                 throw;
+            }
+        }
+        
+        public static void ClearSpectatorUI(HUDManager instance)
+        {
+            Plugin.mls.LogInfo($"Method ClearSpectatorUI called.");
+            
+            for (int i = 0; i < instance.spectatingPlayerBoxes.Count; i++)
+            {
+                instance.spectatingPlayerBoxes.ElementAt(i).Key.gameObject.SetActive(false);
+                instance.boxesAdded--;
+            }
+            
+            instance.yOffsetAmount = 0f;
+            instance.hasGottenPlayerSteamProfilePictures = false;
+            instance.hasLoadedSpectateUI = false;
+            
+            instance.spectatingPlayerBoxes.Clear();
+
+            if (instance.spectatingPlayerBoxes.Count != 0)
+            {
+                Plugin.mls.LogInfo("Error. spectatingPlayerBoxes not empty.");
             }
         }
     }

@@ -3,6 +3,7 @@ using BepInEx.Configuration;
 using BepInEx.Logging;
 using GameNetcodeStuff;
 using HarmonyLib;
+using HarmonyLib.Tools;
 using LethalCompanyInputUtils.Api;
 using UnityEngine.InputSystem;
 
@@ -22,7 +23,7 @@ namespace SpectatorChat
     {
         private const string modGUID = "Kaguya.SpectatorChat";
         private const string modName = "SpectatorChat";
-        private const string modVersion = "1.0.9";
+        private const string modVersion = "1.1.0";
 
         public static ConfigEntry<bool> ShowClock;
         
@@ -44,7 +45,7 @@ namespace SpectatorChat
         
         public static PlayerControllerB PlayerControllerInstance { get; set; }
 
-        public static bool KeyPressed { get; set; } = false;
+        public static bool KeyPressed { get; set; }
         
         public class InputKey : LcInputActions
         {
@@ -75,6 +76,7 @@ namespace SpectatorChat
             mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(harmony, AccessTools.Method(typeof(PlayerControllerB), "KillPlayer")));
             mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(harmony, AccessTools.Method(typeof(PlayerControllerB), "Update")));
             mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(harmony, AccessTools.Method(typeof(HUDManager), "HideHUD")));
+            mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(harmony, AccessTools.Method(typeof(HUDManager), "SetShipReadyToLand")));
         }
 
         private void PatchAll()
@@ -87,6 +89,7 @@ namespace SpectatorChat
             harmony.PatchAll(typeof(HUDManagerPostfixPatch));
             harmony.PatchAll(typeof(KillPlayerPostfixPatch));
             harmony.PatchAll(typeof(HideHUDPostfixPatch));
+            harmony.PatchAll(typeof(SetShipReadyToLandPostfix));
             
             harmony.PatchAll(typeof(KeyPatch));
         }
