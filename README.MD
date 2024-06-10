@@ -137,8 +137,8 @@ More_Emotes
 
 ### Resolved a problem that the spectator boxes not showing correctly.
 
-# 1.1.1
+# 1.1.2
 
 ## General
-
+### Resolved an issue that will cause UI disappear after been revived by OpJosMod.ReviveCompany mod.
 ### Resolved a class spell problem.
