@@ -3,4 +3,4 @@
 If you encounter any bug, Like can't send message, have no Chat UI, please tell me and bring your profile code.
 
 # Changelog
-* See (Release)[https://github.com/XKaguya/SpectatorChat/releases]
+* See [Release](https://github.com/XKaguya/SpectatorChat/releases)
