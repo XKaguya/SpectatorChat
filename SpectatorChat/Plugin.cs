@@ -33,7 +33,7 @@ namespace SpectatorChat
     {
         private const string ModGuid = "Kaguya.SpectatorChat";
         private const string ModName = "SpectatorChat";
-        private const string ModVersion = "1.1.4";
+        private const string ModVersion = "1.1.5";
 
         public static ConfigEntry<bool> ShowClock;
         public static ConfigEntry<bool> CanLivingPlayerReceiveMessage;
@@ -99,28 +99,26 @@ namespace SpectatorChat
 
                 int num = 0;
 
-                foreach (var key in ModId)
+                foreach (var key in loadedMods.Keys)
                 {
-                    if (loadedMods.ContainsKey(key))
+                    if (key == "OpJosMod.ReviveCompany")
                     {
+                        _harmony.PatchAll(typeof(ReviveCompanyPatch));
+
+                        num++;
+                        
                         mls.LogInfo($"Detected {key}, Proceeding PostPatch...");
-
-                        if (key == "OpJosMod.ReviveCompany")
-                        {
-                            _harmony.PatchAll(typeof(ReviveCompanyPatch));
-
-                            num++;
-                        }
-                        else if (key == "FlipMods.ReservedItemSlotCore")
-                        {
-                            Other.ReservedItemUI.InitReservedItemUI();
-                            
-                            num++;
-                        }
-                            
-                        mls.LogInfo($"Mod found. Totally {num} Extra method were executed.");
-                        yield break;
                     }
+                    else if (key == "FlipMods.ReservedItemSlotCore")
+                    {
+                        Other.ReservedItemUI.InitReservedItemUI();
+                            
+                        num++;
+                        
+                        mls.LogInfo($"Detected {key}, Proceeding...");
+                    }
+                            
+                    mls.LogInfo($"Mod found. Totally {num} Extra method were executed.");
                 }
 
                 yield return new WaitForSeconds(10f);

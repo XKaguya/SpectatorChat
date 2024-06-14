@@ -95,13 +95,21 @@ namespace SpectatorChat.API
             {
                 StopCoroutine(permanentTransparentCoroutine);
                 permanentTransparentCoroutine = null;
-                
-                Other.ReservedItemUI.SwitchReservedItemUI(false);
+
+                if (IsModLoaded("FlipMods.ReservedItemSlotCore"))
+                {
+                    Other.ReservedItemUI.SwitchReservedItemUI(false);
+                }
 
                 return true;
             }
 
             return false;
+        }
+
+        public static bool IsModLoaded(string guid)
+        {
+            return Chainloader.PluginInfos.ContainsKey(guid);
         }
         
         private IEnumerator PermanentTransparentCoroutine(HUDElement[] elements)
@@ -115,8 +123,11 @@ namespace SpectatorChat.API
                         element.canvasGroup.alpha = 0f;
                     }
                 }
-                
-                Other.ReservedItemUI.SwitchReservedItemUI(true);
+
+                if (IsModLoaded("FlipMods.ReservedItemSlotCore"))
+                {
+                    Other.ReservedItemUI.SwitchReservedItemUI(true);
+                }
                 
                 yield return Plugin.CoroutineDelay.Value;
             }
