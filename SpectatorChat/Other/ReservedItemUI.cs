@@ -1,30 +1,41 @@
-﻿using System.Collections.Generic;
+﻿#pragma warning disable 1591
+
+using System.Collections.Generic;
 using UnityEngine.UI;
 
-namespace SpectatorChat.Other;
-
-public class ReservedItemUI
+namespace SpectatorChat.Other
 {
-    private static List<Image> ReservedItemSlots { get; set; }
-    
-    public static void InitReservedItemUI()
+    public class ReservedItemUI
     {
-        ReservedItemSlots = ReservedItemSlotCore.Patches.HUDPatcher.reservedItemSlots;
-    }
-
-    public static void SwitchReservedItemUI(bool hide)
-    {
-        if (hide)
+        public static void InitReservedItemUI()
         {
-            foreach (Image img in ReservedItemSlots)
+            if (API.Generic.IsModLoaded("FlipMods.ReservedItemSlotCore"))
             {
-                img.enabled = false;
+                GlobalVariables.ReservedItemSlots = ReservedItemSlotCore.Patches.HUDPatcher.reservedItemSlots;
+            }
+            else
+            {
+                GlobalVariables.ReservedItemSlots = null;
             }
         }
-        
-        foreach (Image img in ReservedItemSlots)
+
+        public static void SwitchReservedItemUI(bool hide)
         {
-            img.enabled = true;
+            if (GlobalVariables.ReservedItemSlots != null)
+            {
+                if (hide)
+                {
+                    foreach (Image img in GlobalVariables.ReservedItemSlots)
+                    {
+                        img.enabled = false;
+                    }
+                }
+        
+                foreach (Image img in GlobalVariables.ReservedItemSlots)
+                {
+                    img.enabled = true;
+                }
+            }
         }
     }
 }

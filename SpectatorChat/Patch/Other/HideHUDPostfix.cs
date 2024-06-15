@@ -1,6 +1,7 @@
 ﻿using System;
 using HarmonyLib;
 using SpectatorChat.API;
+using SpectatorChat.Other;
 
 namespace SpectatorChat.Patch.Other
 {
@@ -11,19 +12,17 @@ namespace SpectatorChat.Patch.Other
         {
             HarmonyAPI.LogCallingMethod("HideHUD");
             
-            Plugin.mls.LogInfo($"{Plugin.PlayerControllerInstance.playerUsername} Environment: Instance Name: {__instance.name} Instance Object Name: {Plugin.PlayerControllerInstance.playerUsername} Instance Owner: {__instance.IsOwner}, Instance Player Dead: {Plugin.PlayerControllerInstance.isPlayerDead}, API IsCoroutineNull: {Generic.Instance.IsCoroutineNull()}");
-            
             if (!Generic.Instance.IsCoroutineNull())
             {
                 try
                 {
                     if (Generic.Instance.StopPermanentTransparent())
                     {
-                        Plugin.mls.LogInfo($"Routine stopped successfully. Player {Plugin.PlayerControllerInstance.playerUsername}");
+                        Plugin.mls.LogInfo($"Routine stopped successfully. Player {GlobalVariables.PlayerControllerInstance!.playerUsername}");
                     }
                     else
                     {
-                        Plugin.mls.LogInfo($"Routine stopped failed. Player {Plugin.PlayerControllerInstance.playerUsername}");
+                        Plugin.mls.LogInfo($"Routine stopped failed. Player {GlobalVariables.PlayerControllerInstance!.playerUsername}");
                     }
                 }
                 catch (Exception ex)

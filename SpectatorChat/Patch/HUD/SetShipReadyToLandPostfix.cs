@@ -1,5 +1,7 @@
-﻿using HarmonyLib;
+﻿using GameNetcodeStuff;
+using HarmonyLib;
 using SpectatorChat.API;
+using SpectatorChat.Other;
 
 namespace SpectatorChat.Patch.HUD
 {
@@ -10,7 +12,7 @@ namespace SpectatorChat.Patch.HUD
         {
             HarmonyAPI.LogCallingMethod("StartOfRound.SetShipReadyToLand");
             
-            Generic.ClearSpectatorUI(Plugin.HUDManagerInstance);
+            Generic.ClearSpectatorUI(GlobalVariables.HUDManagerInstance!);
         }
     }
 }

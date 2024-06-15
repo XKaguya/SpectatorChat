@@ -1,6 +1,7 @@
 ﻿using GameNetcodeStuff;
 using HarmonyLib;
 using SpectatorChat.API;
+using SpectatorChat.Other;
 
 namespace SpectatorChat.Patch.HUD
 {
@@ -9,7 +10,7 @@ namespace SpectatorChat.Patch.HUD
     {
         internal static void Postfix(PlayerControllerB __instance)
         {
-            Plugin.PlayerControllerInstance = __instance;
+            GlobalVariables.PlayerControllerInstance = __instance;
             
             if (!__instance.IsOwner && !__instance.isTestingPlayer)
             {
@@ -22,15 +23,13 @@ namespace SpectatorChat.Patch.HUD
                 {
                     if (!Plugin.KeyPressed)
                     {
-                        Generic.ToggleSpectatorBoxUI(Plugin.HUDManagerInstance, false);
+                        Generic.ToggleSpectatorBoxUI(GlobalVariables.HUDManagerInstance!, false);
                         Plugin.KeyPressed = true;
-                        Plugin.mls.LogInfo($"Player {__instance.playerUsername} pressed {Plugin.InputActionInstance.ToggleDeathBoxKey}, UI has now set to invincible.");
                     }
                     else
                     {
-                        Generic.ToggleSpectatorBoxUI(Plugin.HUDManagerInstance, true);
+                        Generic.ToggleSpectatorBoxUI(GlobalVariables.HUDManagerInstance!, true);
                         Plugin.KeyPressed = false;
-                        Plugin.mls.LogInfo($"Player {__instance.playerUsername} pressed {Plugin.InputActionInstance.ToggleDeathBoxKey}, UI has now set to visible.");
                     }
                 }
             }

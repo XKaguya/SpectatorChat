@@ -1,5 +1,7 @@
-﻿using HarmonyLib;
+﻿using System.Linq;
+using HarmonyLib;
 using SpectatorChat.API;
+using SpectatorChat.Other;
 
 namespace SpectatorChat.Patch.HUD
 {
@@ -10,16 +12,20 @@ namespace SpectatorChat.Patch.HUD
         {
             HarmonyAPI.LogCallingMethod("HUDManager.Awake");
             
-            Plugin.HUDManagerInstance = __instance;
-            
-            Plugin.HUDElements = __instance.HUDElements;
+            GlobalVariables.HUDManagerInstance = __instance;
 
-            if (Plugin.HUDElements != null)
+            if (GlobalVariables.InitReservedItem)
             {
-                foreach (var hudElement in Plugin.HUDElements)
-                {
-                    Plugin.mls.LogInfo($"HUDElement Content: {hudElement.canvasGroup}");
-                }
+                ReservedItemUI.InitReservedItemUI();
+            }
+            
+            if (Plugin.ShowClock.Value)
+            {
+                GlobalVariables.HUDElements = __instance.HUDElements.Where(element => element != __instance.HUDElements[1] && element != __instance.HUDElements[5]).ToArray();
+            }
+            else
+            {
+                GlobalVariables.HUDElements = __instance.HUDElements.Where(element => element != __instance.HUDElements[1]).ToArray();
             }
         }
     }

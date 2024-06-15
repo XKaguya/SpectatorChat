@@ -1,14 +1,18 @@
 ﻿#pragma warning disable 1591
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using GameNetcodeStuff;
 using HarmonyLib;
 using LethalCompanyInputUtils.Api;
+using OPJosMod.ReviveCompany.CustomRpc;
 using SpectatorChat.API;
+using SpectatorChat.Other;
 using SpectatorChat.Patch.Chat;
 using SpectatorChat.Patch.HUD;
 using SpectatorChat.Patch.Other;
@@ -33,25 +37,19 @@ namespace SpectatorChat
     {
         private const string ModGuid = "Kaguya.SpectatorChat";
         private const string ModName = "SpectatorChat";
-        private const string ModVersion = "1.1.5";
+        private const string ModVersion = "1.1.6";
 
-        public static ConfigEntry<bool> ShowClock;
-        public static ConfigEntry<bool> CanLivingPlayerReceiveMessage;
-        public static ConfigEntry<float> CoroutineDelay;
+        public static ConfigEntry<bool> ShowClock { get; private set; }
+        public static ConfigEntry<bool> CanLivingPlayerReceiveMessage { get; private set; }
+        public static ConfigEntry<float> CoroutineDelay { get; private set; }
 
         private static readonly List<string> ModId = new List<string>();
-
-        public static bool CanReceive { get; set; }
 
         private readonly Harmony _harmony = new(ModGuid);
 
         private static Plugin Instance;
 
         public static ManualLogSource mls;
-
-        public static HUDElement[] HUDElements { get; set; }
-        public static HUDManager HUDManagerInstance { get; set; }
-        public static PlayerControllerB PlayerControllerInstance { get; set; }
 
         public static bool KeyPressed { get; set; }
 
@@ -93,38 +91,43 @@ namespace SpectatorChat
             float startTime = Time.time;
             float timeout = 120f;
 
-            while (Time.time - startTime < timeout)
+            if (!GlobalVariables.Init)
             {
-                var loadedMods = BepInEx.Bootstrap.Chainloader.PluginInfos;
-
-                int num = 0;
-
-                foreach (var key in loadedMods.Keys)
+                GlobalVariables.Init = true;
+                
+                while (Time.time - startTime <= timeout)
                 {
-                    if (key == "OpJosMod.ReviveCompany")
-                    {
-                        _harmony.PatchAll(typeof(ReviveCompanyPatch));
+                    var loadedMods = BepInEx.Bootstrap.Chainloader.PluginInfos;
 
-                        num++;
-                        
-                        mls.LogInfo($"Detected {key}, Proceeding PostPatch...");
-                    }
-                    else if (key == "FlipMods.ReservedItemSlotCore")
+                    int num = 0;
+
+                    foreach (var key in loadedMods.Keys)
                     {
-                        Other.ReservedItemUI.InitReservedItemUI();
-                            
-                        num++;
+                        if (key == "OpJosMod.ReviveCompany")
+                        {
+                            _harmony.PatchAll(typeof(ReviveCompanyPatch));
+
+                            num++;
                         
-                        mls.LogInfo($"Detected {key}, Proceeding...");
+                            mls.LogInfo($"Detected {key}, Proceeding PostPatch...");
+                        }
+                        else if (key == "FlipMods.ReservedItemSlotCore")
+                        {
+                            GlobalVariables.InitReservedItem = true;
+                        
+                            num++;
+                        
+                            mls.LogInfo($"Detected {key}, Proceeding...");
+                        }
                     }
-                            
+                
                     mls.LogInfo($"Mod found. Totally {num} Extra method were executed.");
+
+                    yield return new WaitForSeconds(10f);
                 }
-
-                yield return new WaitForSeconds(10f);
             }
-
-            mls.LogInfo("Timeout reached. Mod not found.");
+            
+            mls.LogInfo("Timeout reached or canceled.");
         }
 
         private void PatchAll()
@@ -149,7 +152,8 @@ namespace SpectatorChat
             ShowClock = Config.Bind("Settings", "ShowClock", true, "Show the clock for spectator players.");
             CanLivingPlayerReceiveMessage = Config.Bind("Settings", "CanLivingPlayerReceiveMessage", false, "Can living player receive dead player's message.");
             CoroutineDelay = Config.Bind("Settings", "CoroutineDelay", 1f, "How long will the coroutine delay.");
-            CanReceive = CanLivingPlayerReceiveMessage.Value;
+            
+            mls.LogInfo($"Plugin loaded with config: ShowClock: {ShowClock.Value}, CanLivingPlayerReceiveMessage: {CanLivingPlayerReceiveMessage.Value}, CoroutineDelay: {CoroutineDelay.Value}");
         }
 
         private void LogPatchInfo()
@@ -161,6 +165,7 @@ namespace SpectatorChat
             mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(_harmony, AccessTools.Method(typeof(PlayerControllerB), "Update")));
             mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(_harmony, AccessTools.Method(typeof(HUDManager), "HideHUD")));
             mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(_harmony, AccessTools.Method(typeof(StartOfRound), "SetShipReadyToLand")));
+            mls.LogInfo(HarmonyAPI.GetPatchInfoAsString(_harmony, AccessTools.Method(typeof(CompleteRecievedTasks), "RevivePlayer")));
         }
     }
 }

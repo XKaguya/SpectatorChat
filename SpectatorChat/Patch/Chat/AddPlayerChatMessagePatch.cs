@@ -78,7 +78,7 @@ namespace SpectatorChat.Patch.Chat
                 
                 newInstructions.InsertRange(index, new []
                 {
-                    new(OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Plugin), nameof(Plugin.CanReceive))),
+                    new(OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Plugin), nameof(Plugin.CanLivingPlayerReceiveMessage))),
                     new(OpCodes.Brtrue_S, continueLabel),
                     
                     new (OpCodes.Ret),

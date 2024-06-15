@@ -1,18 +1,20 @@
-﻿using System;
+﻿#pragma warning disable 1591
+
+using System;
 using System.Collections;
 using System.Linq;
+using System.Threading;
 using BepInEx.Bootstrap;
+using SpectatorChat.Other;
 using UnityEngine;
 
 namespace SpectatorChat.API
 {
     public class Generic : MonoBehaviour
     {
-        private static Generic instance;
+        private static Generic? instance;
         
-        private Coroutine permanentTransparentCoroutine;
-        
-        private static HUDElement[] HUDElements { get; set; }
+        private Coroutine? _permanentTransparentCoroutine;
         
         private void Awake()
         {
@@ -43,7 +45,7 @@ namespace SpectatorChat.API
         {
             try
             {
-                return ulong.Parse(userId) == Plugin.PlayerControllerInstance.playerClientId;
+                return ulong.Parse(userId) == GlobalVariables.PlayerControllerInstance!.playerClientId;
             }
             catch (Exception ex)
             {
@@ -55,7 +57,7 @@ namespace SpectatorChat.API
 
         public bool IsCoroutineNull()
         {
-            if (permanentTransparentCoroutine == null)
+            if (_permanentTransparentCoroutine == null)
             {
                 return true;
             }
@@ -63,43 +65,26 @@ namespace SpectatorChat.API
             return false;
         }
 
-        public void GetHUDElements()
-        {
-            if (Plugin.ShowClock.Value)
-            {
-                HUDElements = Plugin.HUDElements.Where(element => element != Plugin.HUDElements[1] && element != Plugin.HUDElements[5]).ToArray();
-            }
-            else
-            {
-                HUDElements = Plugin.HUDElements.Where(element => element != Plugin.HUDElements[1]).ToArray();
-            }
-        }
-
         public bool StartPermanentTransparent()
         {
-            GetHUDElements();
-            
-            if (permanentTransparentCoroutine == null)
+            if (_permanentTransparentCoroutine == null)
             {
-                permanentTransparentCoroutine = StartCoroutine(PermanentTransparentCoroutine(HUDElements));
+                GlobalVariables.CoroutineCancellationTokenSource = new CancellationTokenSource();
+                _permanentTransparentCoroutine = StartCoroutine(PermanentTransparentCoroutine(GlobalVariables.HUDElements!, GlobalVariables.CoroutineCancellationTokenSource));
 
                 return true;
             }
-            
+
             return false;
         }
         
         public bool StopPermanentTransparent()
         {
-            if (permanentTransparentCoroutine != null)
+            if (_permanentTransparentCoroutine != null && GlobalVariables.CoroutineCancellationTokenSource != null)
             {
-                StopCoroutine(permanentTransparentCoroutine);
-                permanentTransparentCoroutine = null;
-
-                if (IsModLoaded("FlipMods.ReservedItemSlotCore"))
-                {
-                    Other.ReservedItemUI.SwitchReservedItemUI(false);
-                }
+                GlobalVariables.CoroutineCancellationTokenSource.Cancel();
+                GlobalVariables.CoroutineCancellationTokenSource = null;
+                _permanentTransparentCoroutine = null;
 
                 return true;
             }
@@ -112,25 +97,39 @@ namespace SpectatorChat.API
             return Chainloader.PluginInfos.ContainsKey(guid);
         }
         
-        private IEnumerator PermanentTransparentCoroutine(HUDElement[] elements)
+        private IEnumerator PermanentTransparentCoroutine(HUDElement[] elements, CancellationTokenSource coroutineCancellationTokenSource)
         {
-            while (true)
+            while (!coroutineCancellationTokenSource.IsCancellationRequested)
             {
-                foreach (HUDElement element in elements)
+                try
                 {
-                    if (element.canvasGroup.alpha != 0)
+                    foreach (HUDElement element in elements)
                     {
-                        element.canvasGroup.alpha = 0f;
+                        if (element.canvasGroup.alpha != 0)
+                        {
+                            element.canvasGroup.alpha = 0f;
+                        }
+                    }
+
+                    if (IsModLoaded("FlipMods.ReservedItemSlotCore"))
+                    {
+                        ReservedItemUI.SwitchReservedItemUI(true);
                     }
                 }
-
-                if (IsModLoaded("FlipMods.ReservedItemSlotCore"))
+                catch (Exception ex)
                 {
-                    Other.ReservedItemUI.SwitchReservedItemUI(true);
+                    Plugin.mls.LogError(ex.Message + ex.StackTrace);
                 }
                 
                 yield return Plugin.CoroutineDelay.Value;
             }
+            
+            if (IsModLoaded("FlipMods.ReservedItemSlotCore"))
+            {
+                ReservedItemUI.SwitchReservedItemUI(false);
+            }
+            
+            _permanentTransparentCoroutine = null;
         }
 
         public static void ToggleSpectatorBoxUI(HUDManager instance, bool isVisable)
