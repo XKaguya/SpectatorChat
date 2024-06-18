@@ -20,7 +20,7 @@ namespace SpectatorChat.Other
         public static HUDElement[]? HUDElements { get; set; }
         
         public static HUDManager? HUDManagerInstance { get; set; }
-        
+
         public static PlayerControllerB? PlayerControllerInstance { get; set; }
     }
 }

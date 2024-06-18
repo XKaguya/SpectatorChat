@@ -1,9 +1,7 @@
 ﻿#pragma warning disable 1591
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
@@ -37,7 +35,7 @@ namespace SpectatorChat
     {
         private const string ModGuid = "Kaguya.SpectatorChat";
         private const string ModName = "SpectatorChat";
-        private const string ModVersion = "1.1.6";
+        private const string ModVersion = "1.1.7";
 
         public static ConfigEntry<bool> ShowClock { get; private set; }
         public static ConfigEntry<bool> CanLivingPlayerReceiveMessage { get; private set; }

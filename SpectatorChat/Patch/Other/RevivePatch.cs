@@ -20,6 +20,8 @@ namespace SpectatorChat.Patch.Other
                 
                 if (Generic.IsInstanceOwner(playerIdString))
                 {
+                    Plugin.mls.LogInfo($"Player {GlobalVariables.PlayerControllerInstance!.playerUsername} has been revived and IsInstanceOwner: {Generic.IsInstanceOwner(playerIdString)}");
+                    
                     Generic.ClearSpectatorUI(GlobalVariables.HUDManagerInstance!);
                     
                     if (Generic.Instance.StopPermanentTransparent())

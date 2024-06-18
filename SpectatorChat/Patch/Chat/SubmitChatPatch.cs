@@ -11,7 +11,6 @@ namespace SpectatorChat.Patch.Chat
     [HarmonyPatch(typeof(HUDManager), "SubmitChat_performed")]
     internal static class SubmitChatPatch
     {
-        [HarmonyAfter(new string[] { "ModAPI" })]
         private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             HarmonyAPI.LogCallingMethod("SubmitChat_performed");

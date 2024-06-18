@@ -67,8 +67,12 @@ namespace SpectatorChat.API
 
         public bool StartPermanentTransparent()
         {
+            Plugin.mls.LogInfo($"StartPermanentTransparent() has been called.");
+            
             if (_permanentTransparentCoroutine == null)
             {
+                Plugin.mls.LogInfo("Trying to start the coroutine.");
+                
                 GlobalVariables.CoroutineCancellationTokenSource = new CancellationTokenSource();
                 _permanentTransparentCoroutine = StartCoroutine(PermanentTransparentCoroutine(GlobalVariables.HUDElements!, GlobalVariables.CoroutineCancellationTokenSource));
 
@@ -80,8 +84,13 @@ namespace SpectatorChat.API
         
         public bool StopPermanentTransparent()
         {
+            Plugin.mls.LogInfo($"StopPermanentTransparent() has been called.");
+            DebugTestClass.PrintAllVariables();
+            
             if (_permanentTransparentCoroutine != null && GlobalVariables.CoroutineCancellationTokenSource != null)
             {
+                Plugin.mls.LogInfo("Trying to stop the coroutine.");
+                
                 GlobalVariables.CoroutineCancellationTokenSource.Cancel();
                 GlobalVariables.CoroutineCancellationTokenSource = null;
                 _permanentTransparentCoroutine = null;

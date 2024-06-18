@@ -10,13 +10,17 @@ namespace SpectatorChat.Patch.HUD
     {
         internal static void Postfix(PlayerControllerB __instance)
         {
-            GlobalVariables.PlayerControllerInstance = __instance;
-            
             if (!__instance.IsOwner && !__instance.isTestingPlayer)
             {
                 return;
             }
 
+            if (GlobalVariables.PlayerControllerInstance != __instance || GlobalVariables.PlayerControllerInstance == null)
+            {
+                Plugin.mls.LogInfo($"Player instance has changed due to {GlobalVariables.PlayerControllerInstance != __instance} or {GlobalVariables.PlayerControllerInstance == null}");
+                GlobalVariables.PlayerControllerInstance = __instance;
+            }
+            
             if (__instance.isPlayerDead)
             {
                 if (Plugin.InputActionInstance.ToggleDeathBoxKey.WasPressedThisFrame())
