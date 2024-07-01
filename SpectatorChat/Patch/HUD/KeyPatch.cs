@@ -10,7 +10,7 @@ namespace SpectatorChat.Patch.HUD
     {
         internal static void Postfix(PlayerControllerB __instance)
         {
-            if (!__instance.IsOwner && !__instance.isTestingPlayer)
+            if (!((__instance.IsOwner && (__instance.isPlayerControlled || __instance.isPlayerDead) && (!__instance.IsServer || __instance.isHostPlayerObject)) || __instance.isTestingPlayer))
             {
                 return;
             }
